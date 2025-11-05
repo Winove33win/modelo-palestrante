@@ -4,7 +4,7 @@ Este é um site modelo para palestrantes que oferecem palestras para empresas. C
 
 ## ✅ Funcionalidades
 - Seção de destaque com imagem e chamada
-- Temas de palestras
+- Temas de palestrasww
 - Provas sociais (logos e depoimentos)
 - Métricas e mídia
 - Chamada para ação com e-mail e WhatsApp
