@@ -30,6 +30,18 @@
     .parallax-overlay{position:absolute;inset:0;z-index:-1}
     /* Vignette para dar contraste ao texto da hero */
     .vignette{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 50%, rgba(0,0,0,.35) 100%)}
+    /* Ajustes mobile */
+    :root{--nav-h:72px}
+    section{scroll-margin-top:calc(var(--nav-h) + 8px)}
+    @media (max-width: 767px){
+      .svh{min-height:78svh;height:auto}
+      .hero-pad{padding-top:calc(env(safe-area-inset-top) + 12px)}
+      /* Desabilita parallax no mobile para evitar "gaps" e saltos */
+      .parallax,.parallax-layer{transform:none !important}
+    }
+    /* Foco da imagem em telas pequenas */
+    .hero-bg{background-position:center 48%}
+    .palco-bg{background-position:center 75%}
   </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
@@ -67,11 +79,11 @@
   <!-- HERO PARALLAX -->
   <section class="relative svh flex items-center" id="home">
     <div class="absolute inset-0 overflow-hidden">
-      <div class="parallax-layer bg-cover bg-center parallax" style="background-image:url('/imagem-modelo-palestra.jpeg'); background-position:center 55%"></div>
+      <div class="parallax-layer bg-cover bg-center parallax hero-bg" style="background-image:url('/imagem-modelo-palestra.jpeg'); background-position:center 55%"></div>
       <div class="parallax-overlay bg-gradient-to-t from-black/80 via-black/50 to-black/20"></div>
       <div class="vignette"></div>
     </div>
-    <div class="relative max-w-5xl mx-auto px-6 mt-16 text-center text-white">
+    <div class="relative max-w-5xl mx-auto px-6 mt-24 md:mt-16 text-center text-white hero-pad">
       <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur text-sm font-semibold tracking-wide reveal">✓ Palestras Corporativas</span>
       <h1 class="mt-4 text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,0.45)] reveal">Transforme seu evento com uma palestra inesquecível</h1>
       <p class="mt-4 text-lg md:text-2xl text-white/90 max-w-3xl mx-auto reveal">Motivação, inovação e resultados reais para o mundo corporativo.</p>
@@ -151,7 +163,7 @@
   <section id="palco" class="relative svh flex items-center">
     <div class="absolute inset-0 overflow-hidden">
       <!-- Coloque o arquivo /public/imagem-palco.jpeg -->
-      <div class="parallax-layer bg-cover bg-center parallax" style="background-image:url('/imagem-palestra.jpg'); background-position:center 80%" data-parallax="0.15"></div>
+      <div class="parallax-layer bg-cover bg-center parallax palco-bg" style="background-image:url('/imagem-palestra.jpg'); background-position:center 80%" data-parallax="0.15"></div>
       <div class="parallax-overlay bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
     </div>
     <div class="relative max-w-5xl mx-auto px-6 text-center text-white">
