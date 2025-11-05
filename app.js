@@ -4,15 +4,13 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Define a pasta pública onde está o HTML e a imagem
+// serve /public na raiz do site
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Rota principal
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Inicializa o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
