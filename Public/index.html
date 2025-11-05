@@ -15,7 +15,14 @@
     /* Header dinâmico */
     .header{transition:all .3s ease}
     .header.scrolled{background:rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(0,0,0,.08);backdrop-filter:saturate(1.2) blur(6px)}
-    .link-underline{position:relative}
+    /* Header tema escuro quando em cima da hero */
+    .header.hero{background:rgba(0,0,0,.25);border-bottom:1px solid rgba(255,255,255,.15)}
+    .header.hero .brand{color:#fff}
+    .header.hero .nav-link{color:#fff}
+    .header.hero .nav-link:hover{color:#fbbf24}
+    .header.hero .cta{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.6)}
+    .header.hero .cta:hover{background:#f59e0b;border-color:#f59e0b;color:#fff}
+    .link-underline{position:relative}{position:relative}
     .link-underline::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#f59e0b;transition:width .25s ease}
     .link-underline:hover::after{width:100%}
     @media (max-width: 767px){.mobile-nav[aria-expanded="false"]{display:none}}
@@ -31,16 +38,16 @@
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="#home" class="flex items-center gap-3 group">
         <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-yellow-400 to-yellow-600 shadow-md"></div>
-        <span class="font-extrabold tracking-tight text-gray-900 group-hover:text-yellow-600">[Nome do Palestrante]</span>
+        <span class="brand font-extrabold tracking-tight text-gray-900 group-hover:text-yellow-600">[Nome do Palestrante]</span>
       </a>
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-        <a href="#temas" class="link-underline hover:text-yellow-600">Temas</a>
-        <a href="#numeros" class="link-underline hover:text-yellow-600">Números</a>
-        <a href="#midia" class="link-underline hover:text-yellow-600">Mídia</a>
-        <a href="#depoimentos" class="link-underline hover:text-yellow-600">Depoimentos</a>
+        <a href="#temas" class="nav-link link-underline hover:text-yellow-600">Temas</a>
+        <a href="#numeros" class="nav-link link-underline hover:text-yellow-600">Números</a>
+        <a href="#midia" class="nav-link link-underline hover:text-yellow-600">Mídia</a>
+        <a href="#depoimentos" class="nav-link link-underline hover:text-yellow-600">Depoimentos</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="#contato" class="hidden md:inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded-full shadow">Orçamento</a>
+        <a href="#contato" class="cta hidden md:inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded-full shadow">Orçamento</a>
         <button id="burger" class="md:hidden p-2 rounded-xl border border-gray-300 bg-white/70 glass" aria-label="Abrir menu">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
@@ -61,7 +68,7 @@
   <section class="relative svh flex items-center" id="home">
     <div class="absolute inset-0 overflow-hidden">
       <div class="parallax-layer bg-cover bg-center parallax" style="background-image:url('/imagem-modelo-palestra.jpeg'); background-position:center 55%"></div>
-      <div class="parallax-overlay bg-gradient-to-t from-black/55 via-black/25 to-transparent"></div>
+      <div class="parallax-overlay bg-gradient-to-t from-black/80 via-black/50 to-black/20"></div>
       <div class="vignette"></div>
     </div>
     <div class="relative max-w-5xl mx-auto px-6 mt-16 text-center text-white">
@@ -73,7 +80,7 @@
         <a href="#sobre" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/30 bg-white/10 hover:bg-white/20">Assistir vídeo</a>
       </div>
       <div class="mt-12 mx-auto max-w-4xl reveal">
-        <div class="bg-white/10 backdrop-blur rounded-2xl border border-white/20 shadow-2xl">
+        <div class="bg-white/15 backdrop-blur rounded-2xl border border-white/30 shadow-2xl">
           <div class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
             <div class="p-4">
               <p class="counter text-3xl font-extrabold">0</p>
@@ -216,7 +223,16 @@
       const header = document.getElementById('header');
       const burger = document.getElementById('burger');
       const mobile = document.getElementById('mobileNav');
-      const onScroll=()=>{window.scrollY>6?header.classList.add('scrolled'):header.classList.remove('scrolled')};
+      const onScroll=()=>{
+        const y = window.scrollY;
+        if(y>6){
+          header.classList.add('scrolled');
+          header.classList.remove('hero');
+        }else{
+          header.classList.remove('scrolled');
+          header.classList.add('hero');
+        }
+      };
       onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
       burger.addEventListener('click',()=>{ const ex = mobile.getAttribute('aria-expanded')==='true'; mobile.setAttribute('aria-expanded', String(!ex)); });
     })();
