@@ -19,8 +19,10 @@
     .link-underline::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#f59e0b;transition:width .25s ease}
     .link-underline:hover::after{width:100%}
     @media (max-width: 767px){.mobile-nav[aria-expanded="false"]{display:none}}
-      .parallax-layer{position:absolute;inset:0;pointer-events:none;z-index:-1}
+    .parallax-layer{position:absolute;inset:0;pointer-events:none;z-index:-1}
     .parallax-overlay{position:absolute;inset:0;z-index:-1}
+    /* Vignette para dar contraste ao texto da hero */
+    .vignette{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 45%, rgba(0,0,0,.55) 100%)}
   </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
@@ -59,20 +61,42 @@
   <section class="relative svh flex items-center" id="home">
     <div class="absolute inset-0 overflow-hidden">
       <div class="parallax-layer bg-cover bg-center parallax" style="background-image:url('/imagem-modelo-palestra.jpeg'); background-position:center 55%"></div>
-      <div class="parallax-overlay bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+      <div class="parallax-overlay bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+      <div class="vignette"></div>
     </div>
-    <div class="relative max-w-4xl mx-auto px-6 mt-16 text-center text-white">
-      <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-xl leading-tight reveal">Transforme seu evento com uma palestra inesquecível</h1>
-      <p class="mt-4 text-lg md:text-2xl text-white/90 max-w-2xl mx-auto reveal">Motivação, inovação e resultados reais para o mundo corporativo.</p>
-      <div class="mt-8 reveal">
+    <div class="relative max-w-5xl mx-auto px-6 mt-16 text-center text-white">
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur text-sm font-semibold tracking-wide reveal">✓ Palestras Corporativas</span>
+      <h1 class="mt-4 text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,0.45)] reveal">Transforme seu evento com uma palestra inesquecível</h1>
+      <p class="mt-4 text-lg md:text-2xl text-white/90 max-w-3xl mx-auto reveal">Motivação, inovação e resultados reais para o mundo corporativo.</p>
+      <div class="mt-8 flex items-center justify-center gap-3 reveal">
         <a href="#contato" class="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg">Solicitar Orçamento</a>
+        <a href="#sobre" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/30 bg-white/10 hover:bg-white/20">Assistir vídeo</a>
       </div>
-      <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-white/80 reveal">
-        <div class="bg-white/10 glass rounded-xl p-4"><span class="counter text-3xl font-extrabold" data-target="500">0</span> <span class="block text-xs uppercase tracking-wide">Empresas</span></div>
-        <div class="bg-white/10 glass rounded-xl p-4"><span class="counter text-3xl font-extrabold" data-target="100000">0</span> <span class="block text-xs uppercase tracking-wide">Pessoas</span></div>
-        <div class="bg-white/10 glass rounded-xl p-4"><span class="counter text-3xl font-extrabold" data-target="98">0</span><span class="align-top">%</span> <span class="block text-xs uppercase tracking-wide">Aprovação</span></div>
-        <div class="bg-white/10 glass rounded-xl p-4"><span class="counter text-3xl font-extrabold" data-target="15">0</span> <span class="block text-xs uppercase tracking-wide">Anos</span></div>
+      <div class="mt-12 mx-auto max-w-4xl reveal">
+        <div class="bg-white/10 backdrop-blur rounded-2xl border border-white/20 shadow-2xl">
+          <div class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
+            <div class="p-4">
+              <p class="counter text-3xl font-extrabold">0</p>
+              <span class="block text-xs uppercase tracking-wide">Empresas</span>
+            </div>
+            <div class="p-4">
+              <p class="counter text-3xl font-extrabold" data-target="100000">0</p>
+              <span class="block text-xs uppercase tracking-wide">Pessoas</span>
+            </div>
+            <div class="p-4">
+              <p class="counter text-3xl font-extrabold" data-target="98">0</p>
+              <span class="block text-xs uppercase tracking-wide">Aprovação</span>
+            </div>
+            <div class="p-4">
+              <p class="counter text-3xl font-extrabold" data-target="15">0</p>
+              <span class="block text-xs uppercase tracking-wide">Anos</span>
+            </div>
+          </div>
+        </div>
       </div>
+      <a href="#temas" class="absolute left-1/2 -translate-x-1/2 bottom-6 text-white/70 hover:text-white transition reveal" aria-label="Role para ver mais">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </a>
     </div>
   </section>
 
