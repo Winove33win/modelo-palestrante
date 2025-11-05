@@ -19,6 +19,8 @@
     .link-underline::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#f59e0b;transition:width .25s ease}
     .link-underline:hover::after{width:100%}
     @media (max-width: 767px){.mobile-nav[aria-expanded="false"]{display:none}}
+      .parallax-layer{position:absolute;inset:0;pointer-events:none;z-index:-1}
+    .parallax-overlay{position:absolute;inset:0;z-index:-1}
   </style>
 </head>
 <body class="bg-white text-gray-900 antialiased">
@@ -56,8 +58,8 @@
   <!-- HERO PARALLAX -->
   <section class="relative svh flex items-center" id="home">
     <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute inset-0 bg-center bg-cover parallax" style="background-image:url('/imagem-modelo-palestra.jpeg')"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+      <div class="parallax-layer bg-cover bg-center parallax" style="background-image:url('/imagem-modelo-palestra.jpeg'); background-position:center 55%"></div>
+      <div class="parallax-overlay bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
     </div>
     <div class="relative max-w-4xl mx-auto px-6 mt-16 text-center text-white">
       <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-xl leading-tight reveal">Transforme seu evento com uma palestra inesquecível</h1>
@@ -118,7 +120,7 @@
   <section id="palco" class="relative svh flex items-center">
     <div class="absolute inset-0 overflow-hidden">
       <!-- Coloque o arquivo /public/imagem-palco.jpeg -->
-      <div class="absolute inset-0 bg-center bg-cover parallax" style="background-image:url('/imagem-palestra.jpg')" data-parallax="0.2"></div>
+      <div class="parallax-layer bg-cover bg-center parallax" style="background-image:url('/imagem-palestra.jpg'); background-position:center 80%" data-parallax="0.15"></div>
       <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
     </div>
     <div class="relative max-w-5xl mx-auto px-6 text-center text-white">
