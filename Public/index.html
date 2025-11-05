@@ -5,116 +5,251 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Palestrante de Impacto</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <style>
+    /* Utilitários visuais */
+    .parallax{will-change:transform;transform:translateY(0)}
+    .reveal{opacity:0;transform:translateY(24px)}
+    .revealed{opacity:1;transform:none;transition:all .7s cubic-bezier(.2,.6,.2,1)}
+    .glass{backdrop-filter:blur(6px)}
+    .svh{height:100svh}
+    /* Header dinâmico */
+    .header{transition:all .3s ease}
+    .header.scrolled{background:rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(0,0,0,.08);backdrop-filter:saturate(1.2) blur(6px)}
+    .link-underline{position:relative}
+    .link-underline::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#f59e0b;transition:width .25s ease}
+    .link-underline:hover::after{width:100%}
+    @media (max-width: 767px){.mobile-nav[aria-expanded="false"]{display:none}}
+  </style>
 </head>
-<body class="bg-white text-gray-900">
-  <!-- Hero Section -->
-  <section class="h-screen bg-cover bg-center flex flex-col justify-center items-center text-center px-4" style="background-image: url('/imagem-modelo-palestra.jpeg');">
-    <h1 class="text-4xl md:text-6xl font-bold text-white drop-shadow-xl">Transforme Seu Evento com uma Palestra Inesquecível</h1>
-    <p class="mt-4 text-xl md:text-2xl text-white max-w-2xl drop-shadow">Motivação, Inovação e Resultados Reais para o Mundo Corporativo</p>
-    <a href="#contato" class="mt-8 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg">Solicitar Orçamento</a>
-  </section>
-
-  <!-- Biografia / Apresentação -->
-  <section class="py-20 px-6 bg-gray-50 text-center">
-    <h2 class="text-3xl font-bold mb-6">Quem é [Nome do Palestrante]</h2>
-    <p class="max-w-3xl mx-auto text-lg leading-relaxed">Com mais de 15 anos de experiência no palco, [Nome] já impactou milhares de profissionais com suas palestras sobre liderança, inovação e propósito. Reconhecido por grandes marcas e eventos, é presença confirmada nos principais congressos empresariais do país.</p>
-  </section>
-
-  <!-- Palestras / Temas -->
-  <section class="py-20 px-6">
-    <h2 class="text-3xl font-bold text-center mb-12">Temas de Palestras</h2>
-    <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h3 class="text-xl font-semibold mb-2">Liderança que Inspira</h3>
-        <p>Como formar líderes preparados para os desafios do mundo atual e engajar equipes com propósito.</p>
+<body class="bg-white text-gray-900 antialiased">
+  <!-- NAVBAR FIXA (impacto) -->
+  <header id="header" class="header fixed top-0 inset-x-0 z-50 bg-white/60 glass border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-yellow-400 to-yellow-600 shadow-md"></div>
+        <span class="font-extrabold tracking-tight text-gray-900 group-hover:text-yellow-600">[Nome do Palestrante]</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#temas" class="link-underline hover:text-yellow-600">Temas</a>
+        <a href="#numeros" class="link-underline hover:text-yellow-600">Números</a>
+        <a href="#midia" class="link-underline hover:text-yellow-600">Mídia</a>
+        <a href="#depoimentos" class="link-underline hover:text-yellow-600">Depoimentos</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="#contato" class="hidden md:inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded-full shadow">Orçamento</a>
+        <button id="burger" class="md:hidden p-2 rounded-xl border border-gray-300 bg-white/70 glass" aria-label="Abrir menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
       </div>
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h3 class="text-xl font-semibold mb-2">Inovação na Prática</h3>
-        <p>Destrave a criatividade organizacional e aprenda a inovar com simplicidade e impacto real.</p>
+    </div>
+    <nav id="mobileNav" class="mobile-nav md:hidden bg-white/95 glass border-t border-gray-200" aria-expanded="false">
+      <div class="px-4 py-3 flex flex-col gap-3 text-sm font-medium">
+        <a href="#temas" class="py-2">Temas</a>
+        <a href="#numeros" class="py-2">Números</a>
+        <a href="#midia" class="py-2">Mídia</a>
+        <a href="#depoimentos" class="py-2">Depoimentos</a>
+        <a href="#contato" class="py-2 bg-yellow-500 text-white rounded-lg text-center">Orçamento</a>
       </div>
-      <div class="bg-white rounded-xl shadow-md p-6">
-        <h3 class="text-xl font-semibold mb-2">O Poder da Comunicação</h3>
-        <p>Domine a arte de se comunicar com clareza, conexão e influência dentro e fora da empresa.</p>
+    </nav>
+  </header>
+
+  <!-- HERO PARALLAX -->
+  <section class="relative svh flex items-center" id="home">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute inset-0 bg-center bg-cover parallax" style="background-image:url('/imagem-modelo-palestra.jpeg')"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+    </div>
+    <div class="relative max-w-4xl mx-auto px-6 mt-16 text-center text-white">
+      <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-xl leading-tight reveal">Transforme seu evento com uma palestra inesquecível</h1>
+      <p class="mt-4 text-lg md:text-2xl text-white/90 max-w-2xl mx-auto reveal">Motivação, inovação e resultados reais para o mundo corporativo.</p>
+      <div class="mt-8 reveal">
+        <a href="#contato" class="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg">Solicitar Orçamento</a>
+      </div>
+      <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-white/80 reveal">
+        <div class="bg-white/10 glass rounded-xl p-4"><span class="counter text-3xl font-extrabold" data-target="500">0</span> <span class="block text-xs uppercase tracking-wide">Empresas</span></div>
+        <div class="bg-white/10 glass rounded-xl p-4"><span class="counter text-3xl font-extrabold" data-target="100000">0</span> <span class="block text-xs uppercase tracking-wide">Pessoas</span></div>
+        <div class="bg-white/10 glass rounded-xl p-4"><span class="counter text-3xl font-extrabold" data-target="98">0</span><span class="align-top">%</span> <span class="block text-xs uppercase tracking-wide">Aprovação</span></div>
+        <div class="bg-white/10 glass rounded-xl p-4"><span class="counter text-3xl font-extrabold" data-target="15">0</span> <span class="block text-xs uppercase tracking-wide">Anos</span></div>
       </div>
     </div>
   </section>
 
-  <!-- Nova Sessão 1: Vídeo Apresentação -->
-  <section class="py-20 px-6 bg-gray-100 text-center">
-    <h2 class="text-3xl font-bold mb-6">Assista ao Palestrante em Ação</h2>
-    <p class="mb-6 text-lg">Veja um trecho de uma apresentação ao vivo e conheça o estilo, energia e conteúdo que impacta equipes em todo o Brasil.</p>
-    <div class="max-w-3xl mx-auto aspect-w-16 aspect-h-9">
-      <iframe class="w-full h-96" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo Palestra" frameborder="0" allowfullscreen></iframe>
+  <!-- SEÇÃO: APRESENTAÇÃO -->
+  <section class="py-24 px-6 bg-white" id="sobre">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div class="reveal">
+        <h2 class="text-3xl font-bold mb-4">Quem é [Nome do Palestrante]</h2>
+        <p class="text-lg leading-relaxed text-gray-700">Com mais de 15 anos no palco, [Nome] já impactou milhares de profissionais com suas palestras sobre liderança, inovação e propósito. Reconhecido por grandes marcas, é presença confirmada nos principais congressos empresariais do país.</p>
+        <div class="mt-6 flex items-center gap-6">
+          <div class="h-1 w-16 bg-yellow-500 rounded"></div>
+          <span class="text-sm text-gray-600">Disponível para eventos presenciais e online</span>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="rounded-2xl overflow-hidden shadow-2xl">
+          <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Vídeo Palestra" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Prova Social (logos locais inline) -->
+  <!-- SEÇÃO: TEMAS -->
+  <section class="py-24 px-6 bg-gray-50" id="temas">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12 reveal">Temas de Palestras</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition reveal">
+          <h3 class="text-xl font-semibold mb-2">Liderança que Inspira</h3>
+          <p class="text-gray-700">Forme líderes preparados para os desafios do mundo atual e engaje equipes com propósito.</p>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition reveal">
+          <h3 class="text-xl font-semibold mb-2">Inovação na Prática</h3>
+          <p class="text-gray-700">Destrave a criatividade organizacional e inove com simplicidade e impacto real.</p>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition reveal">
+          <h3 class="text-xl font-semibold mb-2">O Poder da Comunicação</h3>
+          <p class="text-gray-700">Comunique com clareza, conexão e influência dentro e fora da empresa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOVA SEÇÃO: EXPERIÊNCIA NO PALCO (parallax de fundo) -->
+  <section id="palco" class="relative svh flex items-center">
+    <div class="absolute inset-0 overflow-hidden">
+      <!-- Coloque o arquivo /public/imagem-palco.jpeg -->
+      <div class="absolute inset-0 bg-center bg-cover parallax" style="background-image:url('/imagem-palco.jpeg')" data-parallax="0.2"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+    </div>
+    <div class="relative max-w-5xl mx-auto px-6 text-center text-white">
+      <h2 class="text-4xl md:text-5xl font-extrabold drop-shadow-xl leading-tight reveal">Experiência que Eleva o Seu Palco</h2>
+      <p class="mt-4 text-lg md:text-xl text-white/90 max-w-3xl mx-auto reveal">Conteúdo memorável, condução enérgica e conexão com a audiência — do kickoff ao encerramento.</p>
+      <div class="mt-8 reveal">
+        <a href="#contato" class="inline-flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg">Reservar Data</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVA SOCIAL (SVGs inline) -->
   <section class="py-20 bg-white px-6">
-    <h2 class="text-3xl font-bold text-center mb-8">Empresas que Confiaram</h2>
-    <div class="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
-      <!-- Badge SVG local inline: substitua o texto pelo nome real do cliente quando tiver -->
-      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 1"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 1</text></svg></div>
-      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 2"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 2</text></svg></div>
-      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 3"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 3</text></svg></div>
-      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 4"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 4</text></svg></div>
-      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 5"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 5</text></svg></div>
+    <h2 class="text-3xl font-bold text-center mb-8 reveal">Empresas que Confiaram</h2>
+    <div class="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto reveal">
+      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 1"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 1</text></svg></div>
+      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 2"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 2</text></svg></div>
+      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 3"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 3</text></svg></div>
+      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 4"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 4</text></svg></div>
+      <div class="bg-gray-100 rounded-xl shadow p-4"><svg width="120" height="60" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo 5"><rect x="1" y="1" width="118" height="58" rx="8" fill="#e5e7eb" stroke="#d1d5db"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto" font-size="12" fill="#374151">LOGO 5</text></svg></div>
     </div>
   </section>
 
-  <!-- Nova Sessão 2: Destaques em Números -->
-  <section class="py-20 px-6 bg-yellow-50">
-    <h2 class="text-3xl font-bold text-center mb-10">Impacto em Números</h2>
-    <div class="grid md:grid-cols-4 gap-8 text-center max-w-5xl mx-auto">
-      <div>
-        <p class="text-5xl font-extrabold text-yellow-600">+500</p>
-        <p class="mt-2 text-lg">Empresas Atendidas</p>
-      </div>
-      <div>
-        <p class="text-5xl font-extrabold text-yellow-600">+100.000</p>
-        <p class="mt-2 text-lg">Pessoas Impactadas</p>
-      </div>
-      <div>
-        <p class="text-5xl font-extrabold text-yellow-600">98%</p>
-        <p class="mt-2 text-lg">Avaliação Positiva</p>
-      </div>
-      <div>
-        <p class="text-5xl font-extrabold text-yellow-600">15</p>
-        <p class="mt-2 text-lg">Anos de Experiência</p>
-      </div>
+  <!-- NÚMEROS (faixa com parallax leve) -->
+  <section id="numeros" class="relative py-20">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-yellow-50 to-white parallax" data-parallax="0.1"></div>
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-4 gap-8 text-center">
+      <div class="reveal"><p class="text-5xl font-extrabold text-yellow-600"><span class="counter" data-target="500">0</span></p><p class="mt-2 text-lg">Empresas</p></div>
+      <div class="reveal"><p class="text-5xl font-extrabold text-yellow-600"><span class="counter" data-target="100000">0</span></p><p class="mt-2 text-lg">Pessoas</p></div>
+      <div class="reveal"><p class="text-5xl font-extrabold text-yellow-600"><span class="counter" data-target="98">0</span>%</p><p class="mt-2 text-lg">Aprovação</p></div>
+      <div class="reveal"><p class="text-5xl font-extrabold text-yellow-600"><span class="counter" data-target="15">0</span></p><p class="mt-2 text-lg">Anos</p></div>
     </div>
   </section>
 
-  <!-- Depoimentos -->
-  <section class="py-20 bg-gray-50 px-6">
-    <h2 class="text-3xl font-bold text-center mb-10">O que dizem sobre [Nome]</h2>
-    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-      <blockquote class="bg-white shadow-md rounded-xl p-6 italic">“Simplesmente inspirador. Nossa equipe saiu energizada e com novos insights!” <br /><span class="block mt-2 font-bold text-right">— RH, Empresa XPTO</span></blockquote>
-      <blockquote class="bg-white shadow-md rounded-xl p-6 italic">“A melhor palestra do nosso congresso. Didática, carisma e conteúdo.” <br /><span class="block mt-2 font-bold text-right">— Diretora de Eventos, ABC Corp</span></blockquote>
+  <!-- DEPOIMENTOS -->
+  <section id="depoimentos" class="py-24 bg-gray-50 px-6">
+    <h2 class="text-3xl font-bold text-center mb-10 reveal">O que dizem</h2>
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+      <blockquote class="bg-white shadow-md rounded-2xl p-6 italic reveal">“Simplesmente inspirador. Nossa equipe saiu energizada e com novos insights!” <span class="block mt-4 font-bold text-right">— RH, Empresa XPTO</span></blockquote>
+      <blockquote class="bg-white shadow-md rounded-2xl p-6 italic reveal">“A melhor palestra do nosso congresso. Didática, carisma e conteúdo.” <span class="block mt-4 font-bold text-right">— Diretora de Eventos, ABC Corp</span></blockquote>
     </div>
   </section>
 
-  <!-- Nova Sessão 3: Mídia e Reconhecimentos -->
-  <section class="py-20 px-6 bg-white text-center">
-    <h2 class="text-3xl font-bold mb-8">Na Mídia e Reconhecimentos</h2>
-    <p class="max-w-3xl mx-auto mb-6 text-lg">[Nome] já foi destaque em veículos como Globo, Exame, Valor Econômico e participou de programas de TV, podcasts e TEDx, reconhecido como uma das vozes mais relevantes em inovação e propósito corporativo.</p>
-    <div class="flex flex-wrap justify-center gap-6">
-      <img src="https://via.placeholder.com/100x40?text=Globo" alt="Globo" />
-      <img src="https://via.placeholder.com/100x40?text=Exame" alt="Exame" />
-      <img src="https://via.placeholder.com/100x40?text=TEDx" alt="TEDx" />
-      <img src="https://via.placeholder.com/100x40?text=Valor" alt="Valor Econômico" />
+  <!-- MÍDIA E RECONHECIMENTOS -->
+  <section id="midia" class="py-24 px-6 bg-white text-center">
+    <h2 class="text-3xl font-bold mb-6 reveal">Na mídia e reconhecimentos</h2>
+    <p class="max-w-3xl mx-auto mb-8 text-lg text-gray-700 reveal">Destaque em veículos como Globo, Exame e Valor; presença em programas de TV, podcasts e TEDx.</p>
+    <div class="flex flex-wrap justify-center gap-6 reveal">
+      <span class="px-4 py-2 rounded-full border text-sm">Globo</span>
+      <span class="px-4 py-2 rounded-full border text-sm">Exame</span>
+      <span class="px-4 py-2 rounded-full border text-sm">Valor</span>
+      <span class="px-4 py-2 rounded-full border text-sm">TEDx</span>
     </div>
   </section>
 
-  <!-- CTA Final -->
-  <section id="contato" class="py-20 px-6 text-center bg-yellow-50">
-    <h2 class="text-3xl font-bold mb-4">Vamos conversar?</h2>
-    <p class="mb-6 text-lg">Entre em contato para agendar uma palestra ou tirar dúvidas.</p>
-    <a href="mailto:contato@seudominio.com" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-full shadow">Enviar Email</a>
-    <p class="mt-4 text-sm">Ou mande um WhatsApp para <a href="https://wa.me/5599999999999" class="underline text-yellow-600">(99) 99999-9999</a></p>
+  <!-- CTA FINAL -->
+  <section id="contato" class="py-24 px-6 bg-gradient-to-b from-yellow-50 to-white text-center">
+    <h2 class="text-3xl font-bold mb-4 reveal">Vamos conversar?</h2>
+    <p class="mb-6 text-lg text-gray-700 reveal">Entre em contato para agendar uma palestra ou tirar dúvidas.</p>
+    <a href="mailto:contato@seudominio.com" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-full shadow reveal inline-block">Enviar Email</a>
+    <p class="mt-4 text-sm text-gray-600 reveal">Ou WhatsApp <a href="https://wa.me/5599999999999" class="underline text-yellow-600">(99) 99999-9999</a></p>
   </section>
 
-  <footer class="bg-gray-900 text-gray-100 py-6 text-center text-sm">
-    © 2025 [Nome do Palestrante] — Todos os direitos reservados. 
-  </footer>
+  <footer class="bg-gray-900 text-gray-100 py-6 text-center text-sm">© 2025 [Nome do Palestrante] — Todos os direitos reservados.</footer>
+
+  <script>
+    // Header dinâmico e menu mobile
+    (function(){
+      const header = document.getElementById('header');
+      const burger = document.getElementById('burger');
+      const mobile = document.getElementById('mobileNav');
+      const onScroll=()=>{window.scrollY>6?header.classList.add('scrolled'):header.classList.remove('scrolled')};
+      onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+      burger.addEventListener('click',()=>{ const ex = mobile.getAttribute('aria-expanded')==='true'; mobile.setAttribute('aria-expanded', String(!ex)); });
+    })();
+
+    // Parallax simples
+    (function(){
+      const $par = document.querySelectorAll('.parallax');
+      const ratio = el => parseFloat(el.getAttribute('data-parallax')||'0.25');
+      const onScroll = () => {
+        const y = window.scrollY || window.pageYOffset;
+        $par.forEach(el=>{ el.style.transform = `translateY(${y * ratio(el)}px)`; });
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, {passive:true});
+    })();
+
+    // Reveal on view
+    (function(){
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target);} });
+      }, {threshold: 0.2});
+      document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    })();
+
+    // Smooth scroll para âncoras
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){ e.preventDefault(); window.scrollTo({top: el.offsetTop-72, behavior:'smooth'}); }
+      });
+    });
+
+    // Contadores animados quando entram em view
+    (function(){
+      const counters = document.querySelectorAll('.counter');
+      const easeOut = t => 1 - Math.pow(1 - t, 3);
+      const animate = (el, to, dur=1200) => {
+        const start = performance.now();
+        const from = 0;
+        const isInt = Number.isInteger(to);
+        const step = (now)=>{
+          const p = Math.min(1, (now - start)/dur);
+          const val = from + (to - from) * easeOut(p);
+          el.textContent = isInt ? Math.round(val).toLocaleString('pt-BR') : val.toFixed(0);
+          if(p<1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            const el = e.target; const to = parseInt(el.getAttribute('data-target'),10) || 0;
+            animate(el, to); io.unobserve(el);
+          }
+        });
+      }, {threshold:0.4});
+      counters.forEach(c=>io.observe(c));
+    })();
+  </script>
 </body>
 </html>
