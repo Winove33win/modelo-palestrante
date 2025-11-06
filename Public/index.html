@@ -12,6 +12,7 @@
     .revealed{opacity:1;transform:none;transition:all .7s cubic-bezier(.2,.6,.2,1)}
     .glass{backdrop-filter:blur(6px)}
     .svh{height:100svh}
+
     /* Header dinâmico */
     .header{transition:all .3s ease}
     .header.scrolled{background:rgba(255,255,255,.9);box-shadow:0 10px 30px rgba(0,0,0,.08);backdrop-filter:saturate(1.2) blur(6px)}
@@ -22,14 +23,22 @@
     .header.hero .nav-link:hover{color:#fbbf24}
     .header.hero .cta{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.6)}
     .header.hero .cta:hover{background:#f59e0b;border-color:#f59e0b;color:#fff}
-    .link-underline{position:relative}{position:relative}
+    .link-underline{position:relative}
     .link-underline::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:#f59e0b;transition:width .25s ease}
     .link-underline:hover::after{width:100%}
+
     @media (max-width: 767px){.mobile-nav[aria-expanded="false"]{display:none}}
+    /* Mobile drawer */
+    .mobile-drawer{position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(17,24,39,.96);color:#fff;backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,.12);transform:translateY(-12px);opacity:0;pointer-events:none;transition:all .25s ease}
+    .mobile-drawer.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    #navOverlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s}
+    #navOverlay.open{opacity:1;pointer-events:auto}
+
     .parallax-layer{position:absolute;inset:0;pointer-events:none;z-index:-1}
     .parallax-overlay{position:absolute;inset:0;z-index:-1}
     /* Vignette para dar contraste ao texto da hero */
     .vignette{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 50%, rgba(0,0,0,.35) 100%)}
+
     /* Ajustes mobile */
     :root{--nav-h:72px}
     section{scroll-margin-top:calc(var(--nav-h) + 8px)}
@@ -65,16 +74,17 @@
         </button>
       </div>
     </div>
-    <nav id="mobileNav" class="mobile-nav md:hidden bg-white/95 glass border-t border-gray-200" aria-expanded="false">
-      <div class="px-4 py-3 flex flex-col gap-3 text-sm font-medium">
-        <a href="#temas" class="py-2">Temas</a>
-        <a href="#numeros" class="py-2">Números</a>
-        <a href="#midia" class="py-2">Mídia</a>
-        <a href="#depoimentos" class="py-2">Depoimentos</a>
-        <a href="#contato" class="py-2 bg-yellow-500 text-white rounded-lg text-center">Orçamento</a>
+    <nav id="mobileNav" class="mobile-drawer md:hidden" aria-expanded="false">
+      <div class="py-2">
+        <a href="#temas" class="block px-5 py-4 hover:bg-white/5">Temas</a>
+        <a href="#numeros" class="block px-5 py-4 hover:bg-white/5">Números</a>
+        <a href="#midia" class="block px-5 py-4 hover:bg-white/5">Mídia</a>
+        <a href="#depoimentos" class="block px-5 py-4 hover:bg-white/5">Depoimentos</a>
+        <div class="px-5 py-4"><a href="#contato" class="w-full inline-flex justify-center items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-3 rounded-lg shadow">Orçamento</a></div>
       </div>
     </nav>
   </header>
+  <div id="navOverlay"></div>
 
   <!-- HERO PARALLAX -->
   <section class="relative svh flex items-center" id="home">
@@ -83,7 +93,7 @@
       <div class="parallax-overlay bg-gradient-to-t from-black/80 via-black/50 to-black/20"></div>
       <div class="vignette"></div>
     </div>
-    <div class="relative max-w-5xl mx-auto px-6 mt-24 md:mt-16 text-center text-white hero-pad">
+    <div class="relative max-w-5xl mx-auto px-6 mt-24 md:mt-16 text-center text-white hero-pad pb-40 md:pb-16">
       <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur text-sm font-semibold tracking-wide reveal">✓ Palestras Corporativas</span>
       <h1 class="mt-4 text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,0.45)] reveal">Transforme seu evento com uma palestra inesquecível</h1>
       <p class="mt-4 text-lg md:text-2xl text-white/90 max-w-3xl mx-auto reveal">Motivação, inovação e resultados reais para o mundo corporativo.</p>
@@ -92,7 +102,7 @@
         <a href="#sobre" class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/30 bg-white/10 hover:bg-white/20">Assistir vídeo</a>
       </div>
       <div class="mt-12 mx-auto max-w-4xl reveal">
-        <div class="bg-white/15 backdrop-blur rounded-2xl border border-white/30 shadow-2xl">
+        <div class="bg-white/15 backdrop-blur rounded-2xl border border-white/30 shadow-2xl mb-12">
           <div class="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
             <div class="p-4">
               <p class="counter text-3xl font-extrabold">0</p>
@@ -120,7 +130,7 @@
   </section>
 
   <!-- SEÇÃO: APRESENTAÇÃO -->
-  <section class="py-24 px-6 bg-white" id="sobre">
+  <section class="pt-32 md:pt-24 pb-24 px-6 bg-white" id="sobre">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
       <div class="reveal">
         <h2 class="text-3xl font-bold mb-4">Quem é [Nome do Palestrante]</h2>
@@ -162,7 +172,6 @@
   <!-- NOVA SEÇÃO: EXPERIÊNCIA NO PALCO (parallax de fundo) -->
   <section id="palco" class="relative svh flex items-center">
     <div class="absolute inset-0 overflow-hidden">
-      <!-- Coloque o arquivo /public/imagem-palco.jpeg -->
       <div class="parallax-layer bg-cover bg-center parallax palco-bg" style="background-image:url('/imagem-palestra.jpg'); background-position:center 80%" data-parallax="0.15"></div>
       <div class="parallax-overlay bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
     </div>
@@ -235,6 +244,16 @@
       const header = document.getElementById('header');
       const burger = document.getElementById('burger');
       const mobile = document.getElementById('mobileNav');
+      const overlay = document.getElementById('navOverlay');
+      const toggleMenu = ()=>{
+        const open = !mobile.classList.contains('open');
+        mobile.classList.toggle('open', open);
+        mobile.setAttribute('aria-expanded', String(open));
+        overlay.classList.toggle('open', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        // alterna ícone do burger
+        burger.innerHTML = open ? '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>';
+      };
       const onScroll=()=>{
         const y = window.scrollY;
         if(y>6){
@@ -246,7 +265,9 @@
         }
       };
       onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
-      burger.addEventListener('click',()=>{ const ex = mobile.getAttribute('aria-expanded')==='true'; mobile.setAttribute('aria-expanded', String(!ex)); });
+      burger.addEventListener('click', toggleMenu);
+      overlay.addEventListener('click', toggleMenu);
+      document.querySelectorAll('#mobileNav a').forEach(a=>a.addEventListener('click', toggleMenu));
     })();
 
     // Parallax simples
@@ -304,6 +325,10 @@
       }, {threshold:0.4});
       counters.forEach(c=>io.observe(c));
     })();
+
+    // "Testes" rápidos no console para sanity check (não interferem no layout)
+    console.assert(document.getElementById('header'), 'Header não encontrado');
+    console.assert(document.querySelector('#home .parallax-layer'), 'Fundo da hero não encontrado');
   </script>
 </body>
 </html>
